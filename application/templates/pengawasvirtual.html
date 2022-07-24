@@ -1,0 +1,60 @@
+{% extends 'index.html' %}
+
+{% block body %}
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Pengawas Virtual</h1>
+    </div>
+        <div id="Loader">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-success"  style="width: 10rem; height: 10rem;" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+    <div class="container">
+        <p>Mulai ujian ...</p>
+        <!-- <video id="cam" autoplay style="width: 500px; height: 360px; border:2px solid black"></video> -->
+            <table class="table table-bordered" id="tableujian">
+                <thead class="table table-dark">
+                    <tr>
+                        <th scope="col">Mata Ujian</th>
+                        <th scope="col">Tanggal</th>
+                        <th scope="col">Waktu</th>
+                        <th scope="col">Ruang</th>
+                        <th scope="col">Petugas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{data.ujian}}</td>
+                        <td>{{data.tanggal}}</td>
+                        <td>{{data.waktu}}</td>
+                        <td>{{data.ruang}}</td>
+                        <td>{{data.petugas}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="modal-footer">
+                <a class="btn btn-primary" href="/deteksi/{{data.id}}">Mulai Pengawasan Virtual</a>
+            </div>
+    </div>
+
+    <script>
+        var vidElement = null;
+        function start(){
+            var camAvailable = navigator.mediaDevices && navigator.mediaDevices.getUserMedia;
+            if (camAvailable) {
+                vidElement = document.getElementById("cam");
+                navigator.mediaDevices.getUserMedia({video: true}).then(function(stream) {
+                    vidElement.srcObject = stream;
+                    vidElement.play();
+                });
+            }
+        }
+        function stop() {
+            vidElement.pause();
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,232 @@
+{% extends 'index.html' %}
+
+{% block body %}
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+			  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+				<h1 class="h2">Kelola Jadwal</h1>
+			  </div>
+				<div id="Loader">
+				<div class="d-flex justify-content-center">
+				  <div class="spinner-border text-success"  style="width: 10rem; height: 10rem;" role="status">
+					<span class="visually-hidden">Loading...</span>
+				  </div>
+				</div>
+				</div>
+			  <div class="container">
+			  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+			  data-bs-whatever="@mdo">+Tambah Jadwal</button>
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+					<div class="modal-content">
+					  <div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">jadwal Baru</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					  </div>
+					  <div class="modal-body">
+						<form class="row g-3 needs-validation" action="{{url_for('tambahjadwal')}}" id="tbDokter" method="POST">
+							<div class="col-md-6">
+								<label for="validationCustom04" class="form-label">Mata Ujian</label>
+								<select class="form-select" id="validationCustom04" name="ujian" required>
+								<option selected disabled value="">Pilih...</option>
+								{% for d1 in data1 %}
+								<option value="{{d1.mataUjian}}">{{d1.mataUjian}}</option>
+								{% endfor %}
+								</select>
+							</div>
+							<div class="col-md-6">
+								<label for="validationCustomUsername" class="form-label">Tanggal Ujian</label>
+								<div class="input-group has-validation">
+								  <span class="input-group-text" id="inputGroupPrepend">@</span>
+								  <input type="date" class="form-control" id="validationCustomUsername" 
+								  name="tanggal" aria-describedby="inputGroupPrepend" required>
+								</div>
+							  </div>
+							<div class="col-md-6">
+							<label for="recipient-name" class="col-form-label">Pukul</label>
+							<input type="text" name="waktu" class="form-control" id="recipient-name">
+						  </div>
+						  <div class="col-md-6">
+							<label for="recipient-name" class="col-form-label">Ruang</label>
+							<input type="text" name="ruang" class="form-control" id="recipient-name">
+						  </div>
+						  <div class="col-md-6">
+							<label for="validationCustom04" class="form-label">Nama Petugas</label>
+							<select class="form-select" id="validationCustom04" name="petugas" required>
+							<option selected disabled value="">Pilih...</option>
+							{% for d2 in data2 %}
+							<option value="{{d2.nama}}">{{d2.nama}}</option>
+							{% endfor %}
+							</select>
+						</div>
+					  </div>
+					  <div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+						<button type="submit" class="btn btn-primary">Tambah</button>
+					  </div>
+					  </form>
+					</div>
+				  </div>
+				</div>
+				<br /><br />
+				  <div class="card">
+					  <div class="card-header">
+						Table Jadwal
+					  </div>
+					  <div class="card-body">
+							<table class="table table-bordered table-sm" id="myTable">
+							  <thead class="table table-dark">
+								<tr>
+								  <th scope="col">No.</th>
+								  <th scope="col">Mata Ujian</th>
+								  <th scope="col">Tanggal</th>
+								  <th scope="col">Waktu</th>
+								  <th scope="col">Ruang</th>
+								  <th scope="col">Petugas</th>
+								  <th scope="col">Mulai</th>
+								  <th scope="col">Aksi</th>
+								</tr>
+							  </thead>
+							  <tbody>
+							  {% for dt in data %}
+								<tr>
+								  <th scope="row">{{loop.index}}</th>
+								  <td>{{dt.ujian}}</td>
+								  <td>{{dt.tanggal}}</td>
+								  <td>{{dt.waktu}}</td>
+								  <td>{{dt.ruang}}</td>
+								  <td>{{dt.petugas}}</td>
+								  <td>
+									<button class="btn btn-sm btn-primary">
+										<a style="text-decoration: none; color: white;" href="/pengawasan/{{dt.id}}"><b>Mulai</b></a>
+									</button>
+								  </td>
+								  <td>
+									<button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalE{{dt.id}}" 
+									 data-bs-whatever="@mdo">Ubah</button> 
+									 <div class="modal fade" id="exampleModalE{{dt.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									  <div class="modal-dialog">
+										<div class="modal-content">
+										  <div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Ubah Jadwal</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										  </div>
+										  <div class="modal-body">
+											<form class="row g-3 needs-validation" action="/editjadwal/{{dt.id}}" id="editDkt" method="POST">
+												<div class="col-md-6">
+													<label for="validationCustom04" class="form-label">Mata Ujian</label>
+													<select class="form-select" id="validationCustom04" name="ujian" required>
+													<option selected disabled value="">Pilih...</option>
+													{% for d1 in data1 %}
+													<option value="{{d1.mataUjian}}">{{d1.mataUjian}}</option>
+													{% endfor %}
+													</select>
+												</div>
+												<div class="col-md-6">
+													<label for="validationCustomUsername" class="form-label">Tanggal Ujian</label>
+													<div class="input-group has-validation">
+													  <span class="input-group-text" id="inputGroupPrepend">@</span>
+													  <input type="date" class="form-control" value="{{dt.tanggal}}" id="validationCustomUsername" 
+													  name="tanggal" aria-describedby="inputGroupPrepend" required>
+													</div>
+												  </div>
+												<div class="col-md-6">
+												<label for="recipient-name" class="col-form-label">Pukul</label>
+												<input type="text" name="waktu" class="form-control" value="{{dt.waktu}}" id="recipient-name">
+											  </div>
+											  <div class="col-md-6">
+												<label for="recipient-name" class="col-form-label">Ruang</label>
+												<input type="text" name="ruang" class="form-control" value="{{dt.ruang}}" id="recipient-name">
+											  </div>
+											  <div class="col-md-6">
+												<label for="validationCustom04" class="form-label">Nama Petugas</label>
+												<select class="form-select" id="validationCustom04" name="petugas" required>
+												<option selected disabled value="">Pilih...</option>
+												{% for d2 in data2 %}
+												<option value="{{d2.nama}}">{{d2.nama}}</option>
+												{% endfor %}
+												</select>
+											</div>
+										  </div>
+										  <input type="hidden" value="{{dt.id}}" id="eDk">
+										  <div class="modal-footer"> 
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+										<button type="submit" class="btn btn-primary">Ubah</button>	
+										  </div>
+										  </form>
+										</div>
+									  </div>
+									</div>
+									<button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2{{dt.id}}" 
+									 data-bs-whatever="@mdo">Hapus</button>
+									 <div class="modal fade" id="exampleModal2{{dt.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									  <div class="modal-dialog modal-dialog-centered">
+										<div class="modal-content">
+										  <div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										  </div>
+										  <div class="modal-body">
+											<h5>Apakah anda ingin menghapus data ini?</h5>
+										  </div>
+										  <div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+											<a href="/hapusjadwal/{{dt.id}}" class="btn btn-danger">Ya,Hapus</a>
+										  </div>
+										  </form>
+										</div>
+									  </div>
+									</div>
+								  </td>
+								</tr>
+							  {% endfor %}
+							  </tbody>
+							</table>
+					  </div>
+					</div>
+			  </div>
+{% block tail %}
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			document.querySelector("#tbDokter").onsubmit = async (e) => {
+				e.preventDefault();
+				const req = new XMLHttpRequest();
+				req.onload = () => {
+					const data = JSON.parse(req.responseText);
+					if(data.success) {
+						alert("Data berhasil di tambahkan!");
+						location.reload();
+					} else {
+						alert("Ada trouble");
+					}
+				}
+				const form = document.querySelector("#tbDokter");
+				const datanya = new FormData(form);
+				await req.open("POST", "/tambahjadwal", true);
+				req.send(datanya);
+			}
+		});
+		
+		document.addEventListener("DOMContentLoaded", () => {
+                document.querySelector("#editDkt").onsubmit = async (e) => {
+                    e.preventDefault();
+                    const req = new XMLHttpRequest();
+                    req.onload = () => {
+                        const data = JSON.parse(req.responseText);
+                        if(data.success) {
+                            alert("Data Berhasil diEdit !");
+                            location.reload();
+                        }else{
+                            alert("Terjadi Masalah Pengeditan");
+                        }
+                    }
+                    const form = document.querySelector("#editDkt");
+                    const datanya = new FormData(form);
+                    const nilai = document.querySelector("#eDk").value;
+                    await req.open("POST", `/editdkt/${nilai}`, true);
+                    req.send(datanya);
+                }
+            });
+	</script>
+{% endblock %}
+{% endblock %}

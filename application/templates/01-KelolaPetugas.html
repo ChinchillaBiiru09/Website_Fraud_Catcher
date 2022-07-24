@@ -1,0 +1,236 @@
+{% extends 'index.html' %}
+
+{% block body %}
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+			  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+				<h1 class="h2">Kelola Petugas</h1>
+			  </div>
+				<div id="Loader">
+				<div class="d-flex justify-content-center">
+				  <div class="spinner-border text-success"  style="width: 10rem; height: 10rem;" role="status">
+					<span class="visually-hidden">Loading...</span>
+				  </div>
+				</div>
+				</div>
+			  <div class="container">
+			  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+			  data-bs-whatever="@mdo">+Tambah Petugas</button>
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog modal-lg">
+					<div class="modal-content">
+					  <div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Petugas Baru</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					  </div>
+					  <div class="modal-body">
+						<form class="row g-3 needs-validation" action="{{url_for('tambahpetugas')}}" id="petugas" method="POST">
+							<div class="col-md-6">
+                                <label for="validationCustomUsername" class="form-label">Kode</label>
+                                <input type="text" class="form-control" id="validationCustomUsername" name="kode" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="validationCustom01" class="form-label">Nama Petugas</label>
+                                <input type="text" class="form-control" id="validationCustom01" name="nama" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="validationCustom04" class="form-label">Jenis Kelamin</label>
+                                <select class="form-select" id="validationCustom04" name="jk" required>
+                                    <option selected disabled value="">Pilih...</option>
+                                    <option value="Laki-laki">Laki-laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="validationCustom05" class="form-label">Email</label>
+                                <input type="text" class="form-control" id="validationCustom05" name="email" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="mb-3">
+								<label for="message-text" class="col-form-label">Alamat</label>
+								<textarea class="form-control" name="alamat" style="height: 180px;" id="message-text"></textarea>
+						  </div>
+						  <input type="hidden" name="keterangan" value="Diproses">
+                            <div class="col-md-6">
+                                <label for="validationCustom07" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="validationCustom07" name="password" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="validationCustom04" class="form-label">level</label>
+								<input type="text" class="form-control" value="Petugas" id="validationCustom04" name="level" readonly="true" required>
+                            </div>
+					  <div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+						<button type="submit" class="btn btn-primary">Tambah</button>
+					  </div>
+					  </form>
+					</div>
+				  </div>
+				</div>
+				</div>
+				<br /><br />
+				  <div class="card">
+					  <div class="card-header">
+						Table Petugas
+					  </div>
+					  <div class="card-body">
+							<table class="table table-bordered table-sm" id="myTable">
+							  <thead class="table table-dark">
+								<tr>
+								  <th scope="col">No.</th>
+								  <th scope="col">Kode</th>
+								  <th scope="col">Nama Petugas</th>
+								  <th scope="col">Jenis Kelamin</th>
+								  <th scope="col">Email</th>
+								  <th scope="col">Alamat</th>
+								  <th scope="col">Level</th>
+								  <th scope="col">Aksi</th>
+								</tr>
+							  </thead>
+							  <tbody>
+							  {% for dt in data %}
+								<tr>
+								  <th scope="row">{{loop.index}}</th>
+								  <td>{{dt.kode}}</td>
+								  <td>{{dt.nama}}</td>
+								  <td>{{dt.jk}}</td>
+								  <td>{{dt.email}}</td>
+								  <td>{{dt.alamat}}</td>
+								  <td>{{dt.level_user}}</td>
+								  <td>
+									 <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1{{dt.id}}" 
+									 data-bs-whatever="@mdo"><b>+</b></button>
+									 <div class="modal fade" id="exampleModal1{{dt.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									  <div class="modal-dialog modal-lg">
+										<div class="modal-content">
+										  <div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Ubah Petugas</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										  </div>
+										  <div class="modal-body">
+											<form class="row g-3 needs-validation" action="/editpetugas/{{dt.kode}}" id="editpetugas" method="POST">
+												<div class="col-md-6">
+													<label for="validationCustomUsername" class="form-label">Kode</label>
+													<input type="text" class="form-control" value="{{dt.kode}}" id="validationCustomUsername" name="kode" required>
+											  
+												</div>
+												<div class="col-md-6">
+													<label for="validationCustom01" class="form-label">Nama Petugas</label>
+													<input type="text" class="form-control" value="{{dt.nama}}" id="validationCustom01" name="nama" required>
+												</div>
+												<div class="col-md-6">
+													<label for="validationCustom04" class="form-label">Jenis Kelamin</label>
+													<select class="form-select" id="validationCustom04" name="jk" required>
+														<option selected disabled value="">Pilih...</option>
+														<option value="Laki-laki">Laki-laki</option>
+														<option value="Perempuan">Perempuan</option>
+													</select>
+												</div>
+												<div class="col-md-6">
+													<label for="validationCustom05" class="form-label">Email</label>
+													<input type="text" class="form-control" value="{{dt.email}}" id="validationCustom05" name="email" required>
+													
+												</div>
+												<div class="mb-3">
+													<label for="message-text" class="col-form-label">Alamat</label>
+													<textarea class="form-control" name="alamat" style="height: 180px;" id="message-text">{{dt.alamat}}</textarea>
+											  </div>
+											  <input type="hidden" name="keterangan" value="Diproses">
+												<div class="col-md-6">
+													<label for="validationCustom07" class="form-label">Password</label>
+													<input type="password" class="form-control" id="validationCustom07" name="password" required>
+													
+												</div>
+												<div class="col-md-6">
+													<label for="validationCustom04" class="form-label">level</label>
+													<input type="text" class="form-control" value="Petugas" id="validationCustom04" name="level" readonly="true" required>
+												</div>
+											<input type="hidden" value="{{dt.id}}" id="ePetugas">
+										  <div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+											<button type="submit" class="btn btn-primary">Ubah</button>
+										  </div>
+										  </form>
+										</div>
+									  </div>
+									</div>
+									</div>
+									<button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2{{dt.id}}" 
+									 data-bs-whatever="@mdo"><b>X</b></button>
+									 <div class="modal fade" id="exampleModal2{{dt.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									  <div class="modal-dialog modal-dialog-centered">
+										<div class="modal-content">
+										  <div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										  </div>
+										  <div class="modal-body">
+											<h5>Apakah anda ingin menghapus data ini?</h5>
+										  </div>
+										  <div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+											<a href="/hapuspetugas/{{dt.kode}}" class="btn btn-danger">Ya,Hapus</a>
+										  </div>
+										  </form>
+										</div>
+									  </div>
+									</div>
+								  </td>
+								</tr>
+							  {% endfor %}
+							  </tbody>
+							</table>
+					  </div>
+					</div>
+			  </div>
+{% block tail %}
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			document.querySelector("#petugas").onsubmit = async (e) => {
+				e.preventDefault();
+				const req = new XMLHttpRequest();
+				req.onload = () => {
+					const data = JSON.parse(req.responseText);
+					if(data.success) {
+						alert("Data berhasil di tambahkan!");
+						location.reload();
+					} else {
+						alert("Ada trouble");
+					}
+				}
+				const form = document.querySelector("#petugas");
+				const datanya = new FormData(form);
+				await req.open("POST", "/tambahpetugas", true);
+				req.send(datanya);
+			}
+		});
+		
+		document.addEventListener("DOMContentLoaded", () => {
+			document.querySelector("#editpetugas").onsubmit = async (e) => {
+				e.preventDefault();
+				const req = new XMLHttpRequest();
+				req.onload = () => {
+					const data = JSON.parse(req.responseText);
+					if(data.success) {
+						alert("Data berhasil di edit!");
+						location.reload();
+					} else {
+						alert("Ada trouble");
+					}
+				}
+				const form = document.querySelector("#editpetugas");
+				const datanya = new FormData(form);
+				const nilai = document.querySelector("#ePetugas").value;
+				await req.open("POST", `/editpetugas/${nilai}`, true);
+				req.send(datanya);
+			}
+		});
+	</script>
+</main>
+{% endblock %}
+{% endblock %}

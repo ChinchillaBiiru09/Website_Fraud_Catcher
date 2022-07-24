@@ -1,0 +1,84 @@
+{"intents": [
+    {"tag": "sapaan",
+        "patterns": ["Hi ", "Halo"],
+        "responses": ["Halo", "Hai"],
+        "context": [""]
+    },
+    {
+        "tag": "salam",
+        "patterns": ["assalamualaikum"],
+        "responses": ["Waalaikumsalam"]
+    },
+    {"tag": "bantuan",
+     "patterns": ["Hi ", "Saya Butuh bantuan", "Bantu saya","Tolong"],
+     "responses": ["Halo, jika Anda mengalami kesulitan jangan sungkan bertanya ya , Berikut hal yang bisa Anda tanyakan\n Bagaimana cara menggunakan web ini ?\n Apa kegunaan web ini ?\n Apa saja fitur yang terdapat didalam web ?\n Apa saja indikasi kecurangan sebagai acuan peserta berbuat curang ?\n Bagaimana cara mendeteksi kecurangan pada peserta ?\n Bagaimana mengubah data login ?\n Bagaimana cara mengubah password ?"],
+     "context": [""]
+    },
+    {"tag": "sampai jumpa",
+     "patterns": ["Sampai Jumpa", "exit", "Baik saya sudah memahaminya", "bye"],
+     "responses": ["See you!", "Semoga Harimu Indah !", "Bye! Jangan sungkan bertanya jika kamu bingung."],
+     "context": [""]
+    },
+    {"tag": "terimakasih",
+     "patterns": ["Terimakasih ", "Terimakasih sudah membantu"],
+     "responses": ["sama - sama", "Terimakasih kembali !" ],
+     "context": [""]
+    },
+    {"tag": "pertanyaan 1",
+     "patterns": ["bagaimana cara kerjanya ?", "bagaimana cara pakainya ?", "bagaimana cara menggunakan web ini ?","cara kerja web", "kerja web" , "petunjuk web", "langkah kerja"],
+     "responses": ["pertama anda perlu login dan memilih kelas login anda, setelah sukses, anda akan dibawa ke menu jadwal ujian, terdapat data jadwal ujian dan tombol mulai, peserta ujian wajib menekan tombol mulai agar webcam dapat berjalan untuk deteksi selama ujian, indikasi kecurangan yang diperoleh dari gerakan mencurigakan peserta akan disimpan dalam bentuk txt dan kemudian diupload di halaman hasil laporan, akan muncul 1 baris yang berisi data peserta selama ujian."],
+     "context": [""]
+    },
+    {"tag": "pertanyaan 2",
+     "patterns": ["Apa kegunaan web ini ?", "apa tujuan web ini ?", "untuk apa dibuat web ini?", "apa fungsi web ini ?" , "fungsi web", "tujuan web"],
+     "responses": ["web ini dibuat untuk deteksi indikasi kecurangan pada saat ujian berdasarkan pergerakan gesture wajah peserta ujian"],
+     "context": [""]
+    },
+    {"tag": "pertanyaan 3",
+     "patterns": ["Apa saja fitur yang terdapat di web ini ?", "fitur apa saja", "daftar fitur", "apa saja fitur yang terdapat di web ini ?", "fiturnya apa saja ?", "fitur" ],
+     "responses": ["Web Fraud Catcher menyediakan fitur utama yaitu webcam yang akan mendeteksi pergerakan peserta, kemudian menu table data yang berkaitan dengan ujian, serta menu chatbot"],
+     "context": [""]
+    },
+    {"tag": "pertanyaan 4",
+     "patterns": ["Bagaimana peserta dapat dikatakan berbuat kecurangan / mencontek saat menggunakan web ini?", "indikasi kecurangan", "bagaimana peserta dapat diindikasin mencontek ?", "bagaimana web mendeteksi gerakan mencurigakan ?", "deteksi peserta" ],
+     "responses": ["Caranya, webcam yang terbuka akan mencari dan mendeteksi gerakan kepala,dan wajah dari peserta, apabila terdapat gerakan yang dinilai sebagai indikasi peserta berbuat curang, maka akan disimpan sebagai data yang nantinya ditampilkan kembali di riwayat ujian tiap peserta"],
+     "context": [""]
+    },
+    {"tag": "pertanyaan 5",
+     "patterns": ["Apa saja indikasinya ?", "indikasi peserta berbuat curang ?", "indikasi kecurangan apa saja ?", "daftar indikasi kecurangan", "peserta dinilai berbuat curang jika seperti apa ?", "curang", "indikasi"],
+     "responses": ["Peserta dapat ter indikasi melakukan kecurangan apabila terdapat aktifitas sebagai berikut : Mengangkat alis, Melirik ke kanan dan kiri, Melihat keatas, kebawah, kekanan dan kekiri"],
+     "context": [""]
+    },
+    {"tag": "ubah data",
+     "patterns": ["bagaimana cara mengubah data login saya ?", "saya ingin merubah password ", "ubah password"],
+     "responses": ["Anda dapat mengirimkan permohonan untuk perubahan data akses login, dan perubahan password login kepada Admin Web. "],
+     "context": [""]
+    },
+    {"tag": "kendala login",
+     "patterns": ["bagaimana jika ada peserta yang mengalami kendala login ?", "kendala login", "ngga bisa login", "login error", "lupa password" ],
+     "responses": ["Jika terdapat peserta ujian mengalami kendala dalam akses login, maka silahkan hubungi Admin Web."],
+     "context": [""]
+    },
+    {"tag": "S n K",
+        "patterns": ["Menengok", "hadap kanan ", "hadap kiri" ],
+        "responses": ["gerakan menengok kanan atau kiri dianggap sebagai gerakan mencurigakan. selama ujian berlangsung, peserta diharapkan tidak melakukan gerakan gerakan yg mengindikasikan melakukan kecurangan, seperti : menengok, melirik, meninggalkan tempat ujian.."],
+        "context": [""]
+       }
+       ,
+    {"tag": "S n K",
+        "patterns": ["Melirik" ],
+        "responses": ["gerakan melirik kanan atau kiri dianggap sebagai gerakan mencurigakan. selama ujian berlangsung, peserta diharapkan tidak melakukan gerakan gerakan yg mengindikasikan melakukan kecurangan, seperti : menengok, melirik, meninggalkan tempat ujian."],
+        "context": [""]
+    },
+    {
+    "tag": "pembuat",
+        "patterns": ["pemilik", "milik", "pembuat","buat", "anggota"
+        ],
+        "responses": [
+          "Pembuat website ini adalah mahasiswa semester 5 Politeknik Harapan Bersama",
+          "website ini dibuat oleh kelompok 4 dengan anggota\n 1. Nur Khafidah\n 2. M. Prayoga Pangestu\n 3. Miftakhul Mubarrok\n 4. Arsyad Abdilah"
+        ],
+        "context": [""]
+    }
+]
+}

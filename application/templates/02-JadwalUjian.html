@@ -1,0 +1,132 @@
+{% extends 'index.html' %}
+
+{% block body %}
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">Kelola Jadwal</h1>
+        </div>
+		<div id="Loader">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-success"  style="width: 10rem; height: 10rem;" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+		{% if session.level == 'Petugas' %}
+        <div class="container"><br /><br />
+            <div class="card">
+                <div class="card-header">Table Jadwal</div>
+                <div class="card-body">
+                    <table class="table table-bordered table-sm" id="myTable">
+                        <thead class="table table-dark">
+                            <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">Mata Ujian</th>
+                                <th scope="col">Tanggal</th>
+                                <th scope="col">Waktu</th>
+                                <th scope="col">Ruang</th>
+                                <th scope="col">Petugas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for dt in data %}
+                            <tr>
+                                <th scope="row">{{loop.index}}</th>
+                                <td>{{dt.ujian}}</td>
+                                <td>{{dt.tanggal}}</td>
+                                <td>{{dt.waktu}}</td>
+                                <td>{{dt.ruang}}</td>
+                                <td>{{dt.petugas}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+		</div>
+        {% elif session.level == 'Peserta' %}
+        <div class="container"><br /><br />
+            <div class="card">
+                <div class="card-header">Table Jadwal</div>
+                <div class="card-body">
+                    <table class="table table-bordered table-sm" id="myTable">
+                        <thead class="table table-dark">
+                            <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">Mata Ujian</th>
+                                <th scope="col">Tanggal</th>
+                                <th scope="col">Waktu</th>
+                                <th scope="col">Ruang</th>
+                                <th scope="col">Petugas</th>
+                                <th scope="col">Mulai</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for dt in data %}
+                            <tr>
+                                <th scope="row">{{loop.index}}</th>
+                                <td>{{dt.ujian}}</td>
+                                <td>{{dt.tanggal}}</td>
+                                <td>{{dt.waktu}}</td>
+                                <td>{{dt.ruang}}</td>
+                                <td>{{dt.petugas}}</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary">
+                                        <a style="text-decoration: none; color: white;" href="/pengawasan/{{dt.id}}"><b>Mulai</b></a>
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+		</div>
+        {% endif %}
+    </main>
+{% block tail %}
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			document.querySelector("#tbDokter").onsubmit = async (e) => {
+				e.preventDefault();
+				const req = new XMLHttpRequest();
+				req.onload = () => {
+					const data = JSON.parse(req.responseText);
+					if(data.success) {
+						alert("Data berhasil di tambahkan!");
+						location.reload();
+					} else {
+						alert("Ada trouble");
+					}
+				}
+				const form = document.querySelector("#tbDokter");
+				const datanya = new FormData(form);
+				await req.open("POST", "/tambahjadwal", true);
+				req.send(datanya);
+			}
+		});
+		
+		document.addEventListener("DOMContentLoaded", () => {
+                document.querySelector("#editDkt").onsubmit = async (e) => {
+                    e.preventDefault();
+                    const req = new XMLHttpRequest();
+                    req.onload = () => {
+                        const data = JSON.parse(req.responseText);
+                        if(data.success) {
+                            alert("Data Berhasil diEdit !");
+                            location.reload();
+                        }else{
+                            alert("Terjadi Masalah Pengeditan");
+                        }
+                    }
+                    const form = document.querySelector("#editDkt");
+                    const datanya = new FormData(form);
+                    const nilai = document.querySelector("#eDk").value;
+                    await req.open("POST", `/editdkt/${nilai}`, true);
+                    req.send(datanya);
+                }
+            });
+	</script>
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,120 @@
+<div class="container-fluid">
+	<div class="row">
+		<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+			<div class="position-sticky pt-3">
+				<ul class="nav flex-column">
+				{% if session.level == 'Admin' %}
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="/dashboard1">
+							<span data-feather="home"></span> Dashboard
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/kelola_peserta">
+							<span data-feather="users"></span>
+							Kelola Peserta
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/kelola_petugas">
+							<span data-feather="users"></span>
+							Kelola Petugas
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/kelola_ujian">
+							<span data-feather="book-open"></span>
+							Kelola Ujian
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/kelola_jadwal">
+							<span data-feather="clock"></span>
+							Kelola Jadwal
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/kelola_user">
+							<span data-feather="user"></span>
+							Kelola User
+						</a>
+					</li>
+
+				{% elif session.level == 'Petugas' %}
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="/dashboard2">
+							<span data-feather="home"></span>
+							Dashboard
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/mata_ujian">
+							<span data-feather="file"></span>
+							Mata Ujian
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/jadwal_ujian">
+							<span data-feather="users"></span>
+							Jadwal Ujian
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/daftar_peserta">
+							<span data-feather="users"></span>
+							Daftar Peserta
+						</a>
+					</li>
+					
+				{% elif session.level == 'Peserta' %}
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="/dashboard3">
+							<span data-feather="home"></span>
+							Dashboard
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/mata_ujian">
+							<span data-feather="file"></span>
+							Mata Ujian
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/jadwal_ujian">
+							<span data-feather="book-open"></span>
+							Jadwal Ujian
+						</a>
+					</li>
+					{% endif %}
+				</ul>
+
+				<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+					<span>Laporan Penting</span>
+					<a class="link-secondary" href="#" aria-label="Add a new report">
+						<span data-feather="plus-circle"></span>
+					</a>
+				</h6>
+				<ul class="nav flex-column mb-2">
+					<li class="nav-item">
+						<a class="nav-link" href="/laporan">
+							<span data-feather="file-text"></span>
+							Laporan
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/aboutme">
+							<span data-feather="info"></span>
+							Tentang Kami
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/cb">
+							<span data-feather="message-square"></span>
+							Pusat Bantuan
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+</div>

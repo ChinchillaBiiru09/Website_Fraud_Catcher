@@ -1,0 +1,357 @@
+{% extends 'index.html' %}
+
+{% block body %}
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Kelola Peserta</h1>
+    </div>
+    <div id="Loader">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border text-success"  style="width: 10rem; height: 10rem;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+        data-bs-whatever="@mdo">+Tambah Peserta</button>
+        
+        <!-- *****  ADD PARTICIPAT START  ***** -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Peserta Baru</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="row g-3 needs-validation" action="{{url_for('tambahpeserta')}}" id="Daftar" method="POST">
+                            <div class="col-md-4">
+                                <label for="validationCustomUsername" class="form-label">No Induk</label>
+                                <input type="text" class="form-control" id="validationCustomUsername" name="kode" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="validationCustom01" class="form-label">Nama Peserta</label>
+                                <input type="text" class="form-control" id="validationCustom01" name="nama" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="validationCustom04" class="form-label">Jenis Kelamin</label>
+                                <select class="form-select" id="validationCustom04" name="jk" required>
+                                    <option selected disabled value="">Pilih...</option>
+                                    <option value="Laki-laki">Laki-laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="validationCustom04" class="form-label">Kelas</label>
+                                <select class="form-select" id="validationCustom04" name="kelas" required>
+                                    <option selected disabled value="">Pilih...</option>
+                                    <option value="1A">1A</option>
+                                    <option value="1B">1B</option>
+                                    <option value="1C">1C</option>
+                                    <option value="1D">1D</option>
+                                    <option value="1E">1E</option>
+                                    <option value="2A">2A</option>
+                                    <option value="2B">2B</option>
+                                    <option value="2C">2C</option>
+                                    <option value="2D">2D</option>
+                                    <option value="2E">2E</option>
+                                    <option value="3A">3A</option>
+                                    <option value="3B">3B</option>
+                                    <option value="3C">3C</option>
+                                    <option value="3D">3D</option>
+                                    <option value="3E">3E</option>
+                                    <option value="4A">4A</option>
+                                    <option value="4B">4B</option>
+                                    <option value="4C">4C</option>
+                                    <option value="4D">4D</option>
+                                    <option value="4E">4E</option>
+                                    <option value="5A">5A</option>
+                                    <option value="5B">5B</option>
+                                    <option value="5C">5C</option>
+                                    <option value="5D">5D</option>
+                                    <option value="5E">5E</option>
+                                    <option value="6A">6A</option>
+                                    <option value="6B">6B</option>
+                                    <option value="6C">6C</option>
+                                    <option value="6D">6D</option>
+                                    <option value="6E">6E</option>
+                                    <option value="7A">7A</option>
+                                    <option value="7B">7B</option>
+                                    <option value="7C">7C</option>
+                                    <option value="7D">7D</option>
+                                    <option value="7E">7E</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="validationCustom04" class="form-label">Jurusan</label>
+                                <select class="form-select" id="validationCustom04" name="jurusan" required>
+                                    <option selected disabled value="">Pilih...</option>
+                                    <option value="Teknik Informatika">Teknik Informatika</option>
+                                    <option value="Teknik Komputer">Ilmu Komputer</option>
+                                    <option value="Teknik Audi Video">Teknik Elektro</option>
+                                    <option value="Teknik Mesin">Teknik Mesin</option>
+                                    <option value="Akuntansi Sektor Publik">Akuntansi Sektor Publik</option>
+                                    <option value="Akuntansi">Akuntansi</option>
+                                    <option value="Perhotelan">Perhotelan</option>
+                                    <option value="Farmasi">Farmasi</option>
+                                    <option value="Kebidanan">Kebidanan</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="validationCustom05" class="form-label">Email</label>
+                                <input type="text" class="form-control" id="validationCustom05" name="email" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="validationCustom07" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="validationCustom07" name="password" required>
+                                <div class="valid-feedback">
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="validationCustom04" class="form-label">level</label>
+                                <input type="text" class="form-control" value="Peserta" id="validationCustom04" name="level" readonly="true" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-primary">Tambah</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div><br /><br />
+    <!-- *****  ADD PARTICIPAT END  ***** -->
+
+    
+    <!-- *****  TABLE OF PARTICIPANT START  ***** -->
+        <div class="card">
+            <div class="card-header">
+            Tabel Peserta
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-sm" id="myTable">
+                    <thead class="table table-dark">
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">Kode Peserta</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Jenis Kelamin</th>
+                            <th scope="col">Kelas</th>
+                            <th scope="col">Jurusan</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Tingkat</th>
+                            <th scope="col">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for dt in data %}
+                        <tr>
+                            <th scope="row">{{loop.index}}</th>
+                            <td>{{dt.kode}}</td>
+                            <td>{{dt.nama}}</td>
+                            <td>{{dt.jk}}</td>
+                            <td>{{dt.kelas}}</td>
+                            <td>{{dt.jurusan}}</td>
+                            <td>{{dt.email}}</td>
+                            <td>{{dt.level_user}}</td>
+                            <td>
+                                <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1{{dt.id}}" data-bs-whatever="@mdo"><b>+</b></button> 
+                                <div class="modal fade" id="exampleModal1{{dt.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Ubah Peserta</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="row g-3 needs-validation" action="/editpeserta/{{dt.kode}}" id="EDaftar" method="POST">
+                                                    <div class="col-md-4">
+                                                        <label for="validationCustomUsername" class="form-label">No Induk</label>
+                                                        <input type="text" class="form-control" value="{{dt.kode}}" id="validationCustomUsername" name="kode" required>
+                                                        <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="validationCustom02" class="form-label">Nama Peserta</label>
+                                                        <input type="text" class="form-control" value="{{dt.nama}}" id="validationCustom02" name="nama" required>
+                                                        <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="validationCustom04" class="form-label">Jenis Kelamin</label>
+                                                        <select class="form-select" id="validationCustom04" value="{{dt.jk}}" name="jk" required>
+                                                            <option selected disabled value="">Pilih...</option>
+                                                            <option value="Laki-laki">Laki-laki</option>
+                                                            <option value="Perempuan">Perempuan</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="validationCustom04" class="form-label">Kelas Siswa</label>
+                                                        <select class="form-select" id="validationCustom04" name="kelas" required>
+                                                            <option selected disabled value="">Pilih...</option>
+                                                            <option value="1A">1A</option>
+                                                            <option value="1B">1B</option>
+                                                            <option value="1C">1C</option>
+                                                            <option value="1D">1D</option>
+                                                            <option value="1E">1E</option>
+                                                            <option value="2A">2A</option>
+                                                            <option value="2B">2B</option>
+                                                            <option value="2C">2C</option>
+                                                            <option value="2D">2D</option>
+                                                            <option value="2E">2E</option>
+                                                            <option value="3A">3A</option>
+                                                            <option value="3B">3B</option>
+                                                            <option value="3C">3C</option>
+                                                            <option value="3D">3D</option>
+                                                            <option value="3E">3E</option>
+                                                            <option value="4A">4A</option>
+                                                            <option value="4B">4B</option>
+                                                            <option value="4C">4C</option>
+                                                            <option value="4D">4D</option>
+                                                            <option value="4E">4E</option>
+                                                            <option value="5A">5A</option>
+                                                            <option value="5B">5B</option>
+                                                            <option value="5C">5C</option>
+                                                            <option value="5D">5D</option>
+                                                            <option value="5E">5E</option>
+                                                            <option value="6A">6A</option>
+                                                            <option value="6B">6B</option>
+                                                            <option value="6C">6C</option>
+                                                            <option value="6D">6D</option>
+                                                            <option value="6E">6E</option>
+                                                            <option value="7A">7A</option>
+                                                            <option value="7B">7B</option>
+                                                            <option value="7C">7C</option>
+                                                            <option value="7D">7D</option>
+                                                            <option value="7E">7E</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="validationCustom04" class="form-label">Jurusan</label>
+                                                        <select class="form-select" id="validationCustom04" name="jurusan" required>
+                                                            <option selected disabled value="">Pilih...</option>
+                                                            <option value="Teknik Informatika">Teknik Informatika</option>
+                                                            <option value="Teknik Komputer">Ilmu Komputer</option>
+                                                            <option value="Teknik Audi Video">Teknik Elektro</option>
+                                                            <option value="Teknik Mesin">Teknik Mesin</option>
+                                                            <option value="Akuntansi Sektor Publik">Akuntansi Sektor Publik</option>
+                                                            <option value="Akuntansi">Akuntansi</option>
+                                                            <option value="Perhotelan">Perhotelan</option>
+                                                            <option value="Farmasi">Farmasi</option>
+                                                            <option value="Kebidanan">Kebidanan</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label for="validationCustom05" class="form-label">Email</label>
+                                                        <input type="text" class="form-control" value="{{dt.email}}" id="validationCustom05" name="email" required>
+                                                        <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="validationCustom07" class="form-label">Password</label>
+                                                        <input type="password" class="form-control" id="validationCustom07" name="password" required>
+                                                        <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label for="validationCustom04" class="form-label">level</label>
+                                                        <input type="text" class="form-control" value="Peserta" id="validationCustom04" name="level" readonly="true" required>
+                                                    </div>
+                                                    <input type="hidden" name="keterangan" value="Diproses">
+                                                    <input type="hidden" value="{{dt.id}}" id="eDftr">
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                                        <button type="submit" class="btn btn-primary">Ubah</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2{{dt.id}}" data-bs-whatever="@mdo"><b>x</b></button>
+                                <div class="modal fade" id="exampleModal2{{dt.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">KONFIRMASI</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h5>Apakah Ingin Menghapus data ini ?</h5>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">BATAL</button>
+                                                <a href="/hapuspeserta/{{dt.kode}}" class="btn btn-danger">HAPUS</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% block tail %}
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			document.querySelector("#Daftar").onsubmit = async (e) => {
+				e.preventDefault();
+				const req = new XMLHttpRequest();
+				req.onload = () => {
+					const data = JSON.parse(req.responseText);
+					if(data.success) {
+						alert("Data berhasil di tambahkan!");
+						location.reload();
+					} else {
+						alert("Ada trouble");
+					}
+				}
+				const form = document.querySelector("#Daftar");
+				const datanya = new FormData(form);
+				await req.open("POST", "/tambahpeserta", true);
+				req.send(datanya);
+			}
+		});
+		
+		document.addEventListener("DOMContentLoaded", () => {
+			document.querySelector("#EDaftar").onsubmit = async (e) => {
+				e.preventDefault();
+				const req = new XMLHttpRequest();
+				req.onload = () => {
+					const data = JSON.parse(req.responseText);
+					if(data.success) {
+						alert("Data berhasil di edit!");
+						location.reload();
+					} else {
+						alert("Ada trouble");
+					}
+				}
+				const form = document.querySelector("#EDaftar");
+				const datanya = new FormData(form);
+				const nilai = document.querySelector("#eDftr").value;
+				await req.open("POST", `/editpeserta/${nilai}`, true);
+				req.send(datanya);
+			}
+		});
+	</script>
+{% endblock %}
+{% endblock %}

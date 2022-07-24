@@ -1,0 +1,191 @@
+{% extends 'index.html' %}
+
+{% block body %}
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+			  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+				<h1 class="h2">Kelola Ujian</h1>
+			  </div>
+				<div id="Loader">
+				<div class="d-flex justify-content-center">
+				  <div class="spinner-border text-success"  style="width: 10rem; height: 10rem;" role="status">
+					<span class="visually-hidden">Loading...</span>
+				  </div>
+				</div>
+				</div>
+			  <div class="container">
+			  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" 
+			  data-bs-whatever="@mdo">+Tambah Ujian</button>
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+					<div class="modal-content">
+					  <div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Data Baru</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					  </div>
+					  <div class="modal-body">
+						<form action="{{url_for('tambahmataujian')}}" id="idUjian" method="POST">
+							<div class="mb-3">
+								<label for="validationCustom04" class="form-label">Mata Ujian</label>
+								<select class="form-select" id="validationCustom04" name="mu" required>
+								<option selected disabled value="">Pilih...</option>
+								<option value="Bhs Indonesia">Bhs Indonesia</option>
+								<option value="Bhs Inggris">Bhs Inggris</option>
+								<option value="Matematika">Matematika</option>
+								<option value="Ipa">Ipa</option>
+								</select>
+							</div>
+							<div class="mb-3">
+								<label for="validationCustom04" class="form-label">Nama Pengampu</label>
+								<select class="form-select" id="validationCustom04" name="pengampu" required>
+								<option selected disabled value="">Pilih...</option>
+								{% for d1 in data1 %}
+								<option value="{{d1.nama}}">{{d1.nama}}</option>
+								{% endfor %}
+								</select>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+							<button type="submit" class="btn btn-primary">Tambah</button>
+						</div>
+					  </form>
+					</div>
+				  </div>
+				</div>
+				<br /><br />
+				  <div class="card">
+					  <div class="card-header">
+						Table Mata Ujian
+					  </div>
+					  <div class="card-body">
+							<table class="table table-bordered table-sm" id="myTable">
+							  <thead class="table table-dark">
+								<tr>
+								  <th scope="col">No.</th>
+								  <th scope="col">Mata Ujian</th>
+								  <th scope="col">Nama Pengampu</th>
+								  <th scope="col">Aksi</th>
+								</tr>
+							  </thead>
+							  <tbody>
+							  {% for dt in data %}
+								<tr>
+								  <th scope="row">{{loop.index}}</th>
+								  <td>{{dt.mataUjian}}</td>
+								  <td>{{dt.pengampu}}</td>
+								  <td>
+									 <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1{{dt.id}}" 
+									 data-bs-whatever="@mdo"><b>+</b></button>
+									 <div class="modal fade" id="exampleModal1{{dt.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									  <div class="modal-dialog">
+										<div class="modal-content">
+										  <div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Ubah Data</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										  </div>
+										  <div class="modal-body">
+											<form action="/editmataujian/{{dt.id}}" id="editUjian" method="POST">
+												<div class="mb-3">
+								<label for="validationCustom04" class="form-label">Mata Ujian</label>
+								<select class="form-select" id="validationCustom04" name="mu" required>
+								<option selected disabled value="">Pilih...</option>
+								<option value="Bhs Indonesia">Bhs Indonesia</option>
+								<option value="Bhs Inggris">Bhs Inggris</option>
+								<option value="Matematika">Matematika</option>
+								<option value="Ipa">Ipa</option>
+								</select>
+							</div>
+							<div class="mb-3">
+								<label for="validationCustom04" class="form-label">Nama Pengampu</label>
+								<select class="form-select" id="validationCustom04" name="pengampu" required>
+								<option selected disabled value="">Pilih...</option>
+								{% for d1 in data1 %}
+								<option value="{{d1.nama}}">{{d1.nama}}</option>
+								{% endfor %}
+								</select>
+							</div>
+						</div>
+											  <input type="hidden" value="{{dt.id}}" id="eObt">
+										  <div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+											<button type="submit" class="btn btn-primary">Ubah</button>
+										  </div>
+										  </form>
+										  </div>
+										</div>
+									  </div>
+									</div>
+									<button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal2{{dt.id}}" 
+									 data-bs-whatever="@mdo"><b>X</b></button>
+									 <div class="modal fade" id="exampleModal2{{dt.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									  <div class="modal-dialog modal-dialog-centered">
+										<div class="modal-content">
+										  <div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										  </div>
+										  <div class="modal-body">
+											<h5>Apakah anda ingin menghapus data ini?</h5>
+										  </div>
+										  <div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+											<a href="/hapusmataujian/{{dt.id}}" class="btn btn-danger">Ya,Hapus</a>
+										  </div>
+										  </form>
+										</div>
+									  </div>
+									</div>
+								  </td>
+								</tr>
+							  {% endfor %}
+							  </tbody>
+							</table>
+					  </div>
+					</div>
+			  </div>
+{% block tail %}
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			document.querySelector("#idUjian").onsubmit = async (e) => {
+				e.preventDefault();
+				const req = new XMLHttpRequest();
+				req.onload = () => {
+					const data = JSON.parse(req.responseText);
+					if(data.success) {
+						alert("Data berhasil di tambahkan!");
+						location.reload();
+					} else {
+						alert("Ada trouble");
+					}
+				}
+				const form = document.querySelector("#idUjian");
+				const datanya = new FormData(form);
+				await req.open("POST", "/tambahmataujian", true);
+				req.send(datanya);
+			}
+		});
+		
+		document.addEventListener("DOMContentLoaded", () => {
+			document.querySelector("#editUjian").onsubmit = async (e) => {
+				e.preventDefault();
+				const req = new XMLHttpRequest();
+				req.onload = () => {
+					const data = JSON.parse(req.responseText);
+					if(data.success) {
+						alert("Data berhasil di edit!");
+						location.reload();
+					} else {
+						alert("Ada trouble");
+					}
+				}
+				const form = document.querySelector("#editUjian");
+				const datanya = new FormData(form);
+				const nilai = document.querySelector("#eObt").value;
+				await req.open("POST", `/editmataujian/${nilai}`, true);
+				req.send(datanya);
+			}
+		});
+	</script>
+{% endblock %}
+{% endblock %}
